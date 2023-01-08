@@ -26,7 +26,7 @@ const limiterSlow = rateSlow({
 });
 
 const app = express();
-const db = new Db("local");
+const db = new Db(process.env.DB_ENV || ("local" as any));
 db.connect();
 
 app.use(logger("dev"));
@@ -53,15 +53,15 @@ app.use("/api/payment", paymentRouter);
 app.use("/api/user", userRouter);
 
 if (process.env.NODE_ENV === "production") {
-  let url = path.join(__dirname, "../client/build");
+  let url = path.join(__dirname, "../../client/build");
   app.use(express.static(url));
 
   app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+    res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
   });
 }
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5002;
 
 app.listen(PORT, () => {
   console.log(`Server is starting at PORT ${PORT}`);
