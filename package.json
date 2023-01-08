@@ -6,7 +6,7 @@
   "scripts": {
     "install-client-and-build": "cd client && npm install && npm run build",
     "install-server": "cd server && npm install",
-    "build": "npm install && run install-client-and-build && npm run install-server",
+    "build": "npm install && npm run install-client-and-build && npm run install-server",
     "start": "cd server && tsc && node dist/app.js",
     "test": "jest --coverage"
   },
