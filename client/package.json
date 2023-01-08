@@ -13,6 +13,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/js-cookie": "^3.0.2",
     "@types/node": "^16.18.11",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
@@ -55,7 +56,6 @@
     ]
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.2",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.10"
   },
