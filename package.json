@@ -1,7 +1,7 @@
 {
-  "name": "live-trader",
+  "name": "tutor",
   "version": "1.0.0",
-  "description": "A system to algorithmically trade.",
+  "description": "A tool to help with one's homework",
   "main": "server/app.js",
   "scripts": {
     "install-client-and-build": "cd client && npm install && npm run build",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/austin-starks/Live-Trader.git"
+    "url": "git+https://github.com/austin-starks/StarkTech-tutor.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/austin-starks/Live-Trader/issues"
+    "url": "https://github.com/austin-starks/StarkTech-tutor/issues"
   },
-  "homepage": "https://github.com/austin-starks/Live-Trader#readme",
+  "homepage": "https://github.com/austin-starks/StarkTech-tutor#readme",
   "dependencies": {
     "concurrently": "^6.3.0",
     "typescript": "^4.9.4"
