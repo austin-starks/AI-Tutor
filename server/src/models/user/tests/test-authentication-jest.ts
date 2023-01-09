@@ -43,12 +43,13 @@ describe("Authentication Tests", () => {
       phoneNumber: "555-555-5555",
       email: "example@ gmail.com",
     };
+    let error: any;
     try {
       await User.create(userInfo);
-      fail("Should not reach this point");
     } catch (err) {
-      expect(err).not.toBe(null);
+      error = err;
     }
+    expect(error).not.toBe(null);
   });
 
   test("Cannot create an account with an existing email", async () => {
@@ -67,12 +68,13 @@ describe("Authentication Tests", () => {
       phoneNumber: "555-555-5555",
       email: "example1@gmail.com",
     };
+    let error: any;
     try {
       await User.create(duplicateInfo);
-      fail();
     } catch (err) {
-      expect(err).not.toBe(null);
+      error = err;
     }
+    expect(error).not.toBe(null);
   });
 
   test("Can login using an email without errors", async () => {
@@ -97,12 +99,13 @@ describe("Authentication Tests", () => {
       email: "example@gmail.com",
     };
     await User.create(userInfo);
+    let error: any;
     try {
       await User.login(userInfo.email, "123456789");
-      fail("Should not have logged in");
     } catch (err) {
-      expect(err).not.toBe(null);
+      error = err;
     }
+    expect(error).not.toBe(null);
   });
 
   test("Cannot login with non-existing user", async () => {
