@@ -26,6 +26,7 @@ class Db {
   public mongod = new MongoMemoryServer();
 
   constructor(dbType: "local" | "cloud" | "test") {
+    if (!dbType) throw new Error("No database type provided");
     this.dbType = dbType;
   }
 

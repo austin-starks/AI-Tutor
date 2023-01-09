@@ -10,7 +10,7 @@ import AuthenticationPage from "../pages/Authentication";
 import Stripe from "../components/Payment/Stripe";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { Box, Container } from "@mui/system";
+import { Box } from "@mui/system";
 import Referral from "../components/Referral";
 import { balanceAtom } from "../components/Balance";
 

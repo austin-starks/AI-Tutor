@@ -26,7 +26,7 @@ const limiterSlow = rateSlow({
 });
 
 const app = express();
-const db = new Db(process.env.DB_ENV || ("local" as any));
+const db = new Db(process.env.DB_ENV as any);
 db.connect();
 
 app.use(logger("dev"));
