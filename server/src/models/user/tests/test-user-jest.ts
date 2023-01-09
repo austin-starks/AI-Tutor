@@ -62,9 +62,9 @@ describe("User Tests", () => {
     const user = new User(userInfo);
     await user.save();
     const NONEXISTING_EMAIL = "example123@gmail.com";
+    let error: any;
     try {
       await User.findByEmail(NONEXISTING_EMAIL);
-      fail();
     } catch (err) {
       expect(err.message).toBe(
         `User with email '${NONEXISTING_EMAIL}' does not exist.`
@@ -81,12 +81,13 @@ describe("User Tests", () => {
       email: "example@ gmail.com",
     };
     const user = new User(userInfo);
+    let error: any;
     try {
       await user.save();
-      fail();
     } catch (err) {
-      expect(err).not.toBe(null);
+      error = err;
     }
+    expect(error).not.toBe(null);
   });
 
   test("Cannot create an account with an existing email", async () => {
@@ -108,11 +109,12 @@ describe("User Tests", () => {
       lastName: "Doe",
     };
     const user2 = new User(duplicateInfo);
+    let error: any;
     try {
       await user2.save();
-      fail("Should not be able to save the user");
     } catch (err) {
-      expect(err).not.toBe(null);
+      error = err;
     }
+    expect(error).not.toBe(null);
   });
 });
