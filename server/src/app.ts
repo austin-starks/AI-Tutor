@@ -3,7 +3,6 @@ import express from "express";
 import mongoSanitize from "express-mongo-sanitize";
 import rateLimit from "express-rate-limit";
 import rateSlow from "express-slow-down";
-import helmet from "helmet";
 import logger from "morgan";
 import path from "path";
 import questionRouter from "./routes/question";
@@ -33,12 +32,6 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(helmet());
-// app.use(
-//   helmet({
-//     crossOriginResourcePolicy: false,
-//   })
-// );
 
 if (DOES_RATE_LIMITING) {
   app.use(limiterStop);
