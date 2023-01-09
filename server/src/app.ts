@@ -35,12 +35,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(helmet());
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      scriptSrc: ["'self'", "https://js.stripe.com/v3"],
-    },
+  helmet({
+    crossOriginResourcePolicy: false,
   })
 );
+
 if (DOES_RATE_LIMITING) {
   app.use(limiterStop);
   app.use(limiterSlow);
