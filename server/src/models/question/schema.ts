@@ -10,6 +10,7 @@ interface QuestionHistory {
   user: User;
   cost: number;
   feedback?: string;
+  createdAt?: Date;
 }
 
 const questionSchema = new Schema<QuestionHistory>({

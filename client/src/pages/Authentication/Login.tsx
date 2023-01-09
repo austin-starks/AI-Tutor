@@ -10,7 +10,7 @@ import { bannerAtom, useAtom } from "../../components/Banner";
 import { login } from "../../requests/auth";
 
 const validationSchema = yup.object({
-  email: yup.string().required("Email is required"),
+  emailOrPhone: yup.string().required("Email or phone number is required"),
   password: yup
     .string()
     .min(8, "Password should be of minimum 8 characters length")
@@ -18,7 +18,7 @@ const validationSchema = yup.object({
 });
 
 const RegistrationPage = (props: AuthProps) => {
-  const [, setBanner] = useAtom(bannerAtom);
+  const [banner, setBanner] = useAtom(bannerAtom);
   const formik = useFormik({
     initialValues: {
       emailOrPhone: "",

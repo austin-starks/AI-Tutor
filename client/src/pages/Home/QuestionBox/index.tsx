@@ -20,6 +20,7 @@ import {
 import * as yup from "yup";
 import { useFormik } from "formik";
 import RenderQuestion from "./RenderQuestion";
+import Cookies from "js-cookie";
 
 interface QuestionBoxProps {
   onSubmit: (question: QuestionRequest) => void;
@@ -191,11 +192,15 @@ const QuestionBox = (props: QuestionBoxProps) => {
             </Button>
           )}
         </Box>
-        <Typography>Balance: {props.balance} Coins</Typography>
-        <Typography>
-          Cost: {props.costs && props.costs[formik.values["questionType"]]}{" "}
-          Coins
-        </Typography>
+        {Cookies.get("jwt") && (
+          <>
+            <Typography>Balance: {props.balance} Coins</Typography>
+            <Typography>
+              Cost: {props.costs && props.costs[formik.values["questionType"]]}{" "}
+              Coins
+            </Typography>
+          </>
+        )}
       </Box>
     </form>
   );

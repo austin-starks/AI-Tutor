@@ -2,7 +2,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config({ path: ".env" });
-mongoose.set("useFindAndModify", false);
+
 const cloudDB = process.env.CLOUD_DB;
 const localDB = process.env.LOCAL_DB;
 const connectionMap = new Map();
@@ -29,29 +29,16 @@ class Db {
 
   private async connectHelper() {
     const connectionURL = connectionMap.get(this.dbType);
-    await mongoose
-      .connect(connectionURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-      })
-      .then(() => {
-        console.log(
-          "Successfully connected to " + this.dbType + " database server!"
-        );
-      })
-      .catch((e) => console.log(e));
+    await mongoose.connect(connectionURL);
+    console.log(
+      "Successfully connected to " + this.dbType + " database server!"
+    );
   }
 
   private async connectTest() {
     await this.mongod.start();
     const uri = this.mongod.getUri();
-    const mongooseOpts = {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-    };
-    await mongoose.connect(uri, mongooseOpts);
+    await mongoose.connect(uri);
   }
 
   public async connect() {

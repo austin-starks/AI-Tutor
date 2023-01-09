@@ -5,10 +5,6 @@ const router = express.Router();
 
 router.post("/", auth.isAuthorized, questionController.ask);
 router.post("/feedback", auth.isAuthorized, questionController.submitFeedback);
-router.get(
-  "/costs",
-  auth.isAuthorized,
-  questionController.getQuestionCostsAndBalance
-);
+router.get("/costs", questionController.getQuestionCostsAndBalance);
 
 export default router;
