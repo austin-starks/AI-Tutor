@@ -1,15 +1,18 @@
 import User from "../models/user";
+import Balance from "../models/userBalance";
 import { LoginRequest, RegistrationRequest, Response, Request } from "./types";
 
 class UserController {
   handleRegistrationErrors = (error: any): [number, string] => {
-    if (error.name === "MongoError" && error.keyValue.email) {
+    const isMongoError =
+      error.name === "MongoError" || error.name === "MongoServerError";
+    if (isMongoError && error.keyValue.email) {
       return [400, "Email already exists"];
     } else if (error.name === "MongoError") {
       return [400, "Username already exists"];
     } else if (error.name === "ValidatorError") {
       return [400, "Invalid Username"];
-    } else if (error.name === "MongoError" && error.keyValue.phoneNumber) {
+    } else if (isMongoError && error.keyValue.phoneNumber) {
       return [400, "Phone number already registered"];
     } else {
       return [400, "Undefined error"];
@@ -35,9 +38,9 @@ class UserController {
         maxAge: cookieMaxAge,
         secure: process.env.NODE_ENV !== "development",
       });
-      res.status(200).json({ message: "Authentication succeeded" });
+      const balance = await Balance.getBalance(user);
+      res.status(200).json({ message: "Authentication succeeded", balance });
     } catch (err) {
-      console.log(err);
       res.status(400).json({ message: "Invalid email and/or password" });
     }
   };
@@ -58,10 +61,10 @@ class UserController {
         maxAge: cookieMaxAge,
         secure: process.env.NODE_ENV !== "development",
       });
-      res.status(201).json({ message: "User created successfully" });
+      const balance = await Balance.getBalance(user);
+      res.status(201).json({ message: "User created successfully", balance });
     } catch (e) {
       const [statusCode, errMsg] = this.handleRegistrationErrors(e);
-      console.log(e);
       res.status(statusCode).json({ message: errMsg });
     }
   };
@@ -75,6 +78,16 @@ class UserController {
       res.status(500).json({ message: error.msg });
     }
   };
+
+  async getBalance(req: Request, res: Response) {
+    try {
+      const balance = await Balance.getBalance(req.user);
+      res.status(200).json({ balance });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: error.message });
+    }
+  }
 }
 
 export default new UserController();

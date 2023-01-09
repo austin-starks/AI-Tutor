@@ -6,10 +6,11 @@ import { modalAtom } from "../../components/Modal";
 import { catchServerError } from "../../requests/common";
 import {
   ask,
-  getQuestionCostsAndBalance,
+  getQuestionCosts,
   QuestionCost,
   QuestionRequest,
 } from "../../requests/question";
+import { getBalance } from "../../requests/user";
 import AnswerBox from "./AnswerBox";
 import QuestionBox from "./QuestionBox";
 
@@ -38,9 +39,16 @@ const Home = () => {
   };
 
   useEffect(() => {
-    getQuestionCostsAndBalance()
+    getQuestionCosts()
       .then((res) => {
         setCosts(res.data.costs);
+      })
+      .catch((err) => catchServerError(err, setModalType, setBanner));
+  }, []);
+
+  useEffect(() => {
+    getBalance()
+      .then((res) => {
         setBalance(res.data.balance);
       })
       .catch((err) => catchServerError(err, setModalType, setBanner));

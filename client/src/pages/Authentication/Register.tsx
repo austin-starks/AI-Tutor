@@ -1,4 +1,4 @@
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { AuthProps } from ".";
 import { bannerAtom, useAtom } from "../../components/Banner";
-import { register } from "../../requests/auth";
+import { register } from "../../requests/user";
 import validator from "validator";
 
 const validationSchema = yup.object({
@@ -39,14 +39,14 @@ const RegistrationPage = (props: AuthProps) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       register(values)
-        .then(() => {
+        .then((res) => {
           setBanner({
             severity: "success",
             message: "Registration successful!",
           });
           setTimeout(() => {
             setBanner({ severity: "success", message: "" });
-            props.onSubmit();
+            props.onSubmit(res.data);
           }, 400);
         })
         .catch((err) => {
@@ -54,6 +54,7 @@ const RegistrationPage = (props: AuthProps) => {
             severity: "error",
             message: err.response.data.message || err.response.data.msg,
           });
+          formik.setSubmitting(false);
         });
     },
   });
@@ -136,8 +137,13 @@ const RegistrationPage = (props: AuthProps) => {
         </Box>
         <div style={{ marginTop: "10px" }}></div>
         <Box m={5}>
-          <Button variant="contained" fullWidth type="submit">
-            Submit
+          <Button
+            disabled={formik.isSubmitting}
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            {formik.isSubmitting ? <CircularProgress /> : "Submit"}
           </Button>
         </Box>
       </form>

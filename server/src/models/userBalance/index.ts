@@ -24,7 +24,7 @@ class Balance {
       model = await Balance.newBalance(user);
     }
     model.balance -= amount;
-    if (model.balance <= 0) {
+    if (model.balance < 0) {
       throw new InsufficientBalanceError("Insufficient balance");
     }
     await model.save();
@@ -34,7 +34,7 @@ class Balance {
   static getBalance = async (user: User) => {
     const model = await BalanceModel.findOne({ user: user.id });
     if (!model) {
-      return 0;
+      return;
     }
     return model.balance;
   };

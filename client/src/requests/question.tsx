@@ -64,7 +64,7 @@ export interface QuestionCost {
   [QuestionTypeEnum.OTHER]: number;
 }
 
-export const getQuestionCostsAndBalance = async (): Promise<AxiosResponse> =>
+export const getQuestionCosts = async (): Promise<AxiosResponse> =>
   axios.get(`/api/question/costs`);
 
 export const ask = async (

@@ -43,8 +43,9 @@ const Wrapper = (props: { children: React.ReactNode }) => {
           <Modal open={modalType !== ""} handleClose={() => setModalType("")}>
             {modalType === ModalType.Authentication && (
               <AuthenticationPage
-                onSubmit={() => {
+                onSubmit={(obj) => {
                   setModalType("");
+                  setBalance(obj.balance);
                 }}
               />
             )}

@@ -4,10 +4,12 @@ import Register from "./Register";
 
 export interface AuthProps {
   switchPage: () => void;
-  onSubmit: () => void;
+  onSubmit: (obj: { balance: number }) => void;
 }
 
-const AuthenticationPage = (props: { onSubmit: () => void }) => {
+const AuthenticationPage = (props: {
+  onSubmit: (obj: { balance: number }) => void;
+}) => {
   const [page, setPage] = useState("register");
   if (page === "login") {
     return (

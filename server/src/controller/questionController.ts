@@ -33,14 +33,10 @@ class QuestionController {
     }
   };
 
-  getQuestionCostsAndBalance = async (req: Request, res: Response) => {
+  getQuestionCosts = async (req: Request, res: Response) => {
     try {
       const costs = Question.getQuestionCosts();
-      let balance = 0;
-      if (req.user) {
-        balance = await Balance.getBalance(req.user);
-      }
-      res.status(200).json({ costs, balance });
+      res.status(200).json({ costs });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error.message });

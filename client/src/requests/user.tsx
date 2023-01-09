@@ -20,3 +20,4 @@ export const register = (data: RegistrationData) =>
 export const login = (data: LoginData) => axios.post(`/api/user/login`, data);
 export const ping = () => axios.get(`/api/protected`);
 export const logout = () => axios.post(`/api/user/logout`, {});
+export const getBalance = () => axios.get(`/api/user/balance`);

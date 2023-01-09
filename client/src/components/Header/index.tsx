@@ -8,7 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Header } from "./styles";
-import { logout } from "../../requests/auth";
+import { logout } from "../../requests/user";
 import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { modalAtom, ModalType } from "../Modal";
@@ -105,19 +105,20 @@ function ResponsiveAppBar(props: { sx?: any }) {
               display: { xs: "none", md: "flex" },
             }}
           ></Box>
-          {pages.map((page) => (
-            <Typography
-              sx={{ "&:hover": { cursor: "pointer" } }}
-              mr={4}
-              key={page.name}
-              onClick={() => {
-                page.onClick();
-              }}
-              variant="body2"
-            >
-              {page.name}
-            </Typography>
-          ))}
+          {Cookies.get("jwt") &&
+            pages.map((page) => (
+              <Typography
+                sx={{ "&:hover": { cursor: "pointer" } }}
+                mr={4}
+                key={page.name}
+                onClick={() => {
+                  page.onClick();
+                }}
+                variant="body2"
+              >
+                {page.name}
+              </Typography>
+            ))}
           <Box>
             <Tooltip title="Open User Menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

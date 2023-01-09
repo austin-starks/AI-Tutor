@@ -1,4 +1,4 @@
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { AuthProps } from ".";
 import { bannerAtom, useAtom } from "../../components/Banner";
-import { login } from "../../requests/auth";
+import { login } from "../../requests/user";
 
 const validationSchema = yup.object({
   emailOrPhone: yup.string().required("Email or phone number is required"),
@@ -18,7 +18,7 @@ const validationSchema = yup.object({
 });
 
 const RegistrationPage = (props: AuthProps) => {
-  const [banner, setBanner] = useAtom(bannerAtom);
+  const [, setBanner] = useAtom(bannerAtom);
   const formik = useFormik({
     initialValues: {
       emailOrPhone: "",
@@ -28,11 +28,11 @@ const RegistrationPage = (props: AuthProps) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       login(values)
-        .then(() => {
+        .then((res) => {
           setBanner({ severity: "success", message: "Login successful!" });
           setTimeout(() => {
             setBanner((b) => ({ ...b, message: "" }));
-            props.onSubmit();
+            props.onSubmit(res.data);
           }, 400);
         })
         .catch((err) => {
@@ -40,6 +40,7 @@ const RegistrationPage = (props: AuthProps) => {
             severity: "error",
             message: err.response.data.message || err.response.data.msg,
           });
+          formik.setSubmitting(false);
         });
     },
   });
@@ -107,8 +108,13 @@ const RegistrationPage = (props: AuthProps) => {
         </Box>
         <div style={{ marginTop: "5px" }}></div>
         <Box m={5}>
-          <Button variant="contained" fullWidth type="submit">
-            Submit
+          <Button
+            disabled={formik.isSubmitting}
+            variant="contained"
+            fullWidth
+            type="submit"
+          >
+            {formik.isSubmitting ? <CircularProgress /> : "Submit"}
           </Button>
         </Box>
       </form>
