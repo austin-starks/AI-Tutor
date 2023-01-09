@@ -11,6 +11,8 @@ connectionMap.set("cloud", cloudDB);
 connectionMap.set("localDB", localDB);
 connectionMap.set("local", localDB);
 
+mongoose.set("strictQuery", false);
+
 class Db {
   /**
    * The MongoDB database class
