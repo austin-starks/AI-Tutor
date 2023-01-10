@@ -1,4 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { balanceAtom } from "../../components/Balance";
 import Banner, { bannerAtom, useAtom } from "../../components/Banner";
@@ -47,15 +48,17 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    getBalance()
-      .then((res) => {
-        setBalance(res.data.balance);
-      })
-      .catch((err) => catchServerError(err, setModalType, setBanner));
+    if (Cookies.get("jwt")) {
+      getBalance()
+        .then((res) => {
+          setBalance(res.data.balance);
+        })
+        .catch((err) => catchServerError(err, setModalType, setBanner));
+    }
   }, []);
 
   return (
-    <Box margin="1.5rem auto" width={"80%"}>
+    <Box margin="1.5rem auto" width={"85%"}>
       <Banner banner={banner} handleClose={handleClose} />
       <Box>
         <Typography variant="body2" color="text.secondary" align="center">

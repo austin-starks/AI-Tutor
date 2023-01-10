@@ -32,9 +32,9 @@ class Balance {
   }
 
   static getBalance = async (user: User) => {
-    const model = await BalanceModel.findOne({ user: user.id });
+    let model = await BalanceModel.findOne({ user: user.id });
     if (!model) {
-      return;
+      model = await Balance.newBalance(user);
     }
     return model.balance;
   };

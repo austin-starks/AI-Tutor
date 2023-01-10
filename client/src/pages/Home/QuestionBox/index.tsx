@@ -174,16 +174,13 @@ const QuestionBox = (props: QuestionBoxProps) => {
         </Grid>
       </Grid>
 
-      <Box
-        display="flex"
-        alignItems={"center"}
-        justifyContent={"space-between"}
-      >
-        <Box>
+      <Grid container display={"flex"} justifyContent="space-between">
+        <Grid margin={"0 auto"} textAlign="center" item mb={2} xs={12} sm={3}>
           {formik.isSubmitting ? (
             <CircularProgress />
           ) : (
             <Button
+              fullWidth
               disabled={formik.isSubmitting}
               variant="contained"
               type="submit"
@@ -191,17 +188,21 @@ const QuestionBox = (props: QuestionBoxProps) => {
               {"Submit"}
             </Button>
           )}
-        </Box>
+        </Grid>
         {Cookies.get("jwt") && (
-          <>
-            <Typography>Balance: {props.balance} Coins</Typography>
-            <Typography>
-              Cost: {props.costs && props.costs[formik.values["questionType"]]}{" "}
-              Coins
+          <Grid margin={"0 auto"} textAlign="center" item xs={6} sm={3}>
+            <Typography variant="body2">
+              Balance: {props.balance} Coins
             </Typography>
-          </>
+          </Grid>
         )}
-      </Box>
+        <Grid margin={"0 auto"} textAlign="center" item xs={6} sm={3}>
+          <Typography variant="body2">
+            Cost: {props.costs && props.costs[formik.values["questionType"]]}{" "}
+            Coins
+          </Typography>
+        </Grid>
+      </Grid>
     </form>
   );
 };

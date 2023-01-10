@@ -82,6 +82,7 @@ class UserController {
   async getBalance(req: Request, res: Response) {
     try {
       const balance = await Balance.getBalance(req.user);
+      console.log("balance", balance);
       res.status(200).json({ balance });
     } catch (error) {
       console.log(error);
