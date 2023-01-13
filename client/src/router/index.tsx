@@ -13,6 +13,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Box } from "@mui/system";
 import Referral from "../components/Referral";
 import { balanceAtom } from "../components/Balance";
+import LandingPage from "../pages/Landing";
 
 const stripePromise = loadStripe(
   "pk_test_51MNQuuLGasFw47mVwXPigNgzMK5W1IfVuUKqfnoyXztXOYj5KKQgLp2QD40kiwVwNF3Tf0EY2oXLbjwab8zajkMz00wkoxROsM"
@@ -39,7 +40,6 @@ const Wrapper = (props: { children: React.ReactNode }) => {
       <Header />
       <Box sx={{ margin: "0 auto", maxWidth: "3000px" }}>
         <Elements stripe={stripePromise}>
-          <Styles />
           <Modal open={modalType !== ""} handleClose={() => setModalType("")}>
             {modalType === ModalType.Authentication && (
               <AuthenticationPage
@@ -85,9 +85,18 @@ const Wrapper = (props: { children: React.ReactNode }) => {
 const Router = () => {
   return (
     <Elements stripe={stripePromise}>
+      <Styles />
       <Routes>
         <Route
           path={"/"}
+          element={
+            <Wrapper>
+              <LandingPage />
+            </Wrapper>
+          }
+        />
+        <Route
+          path={"/app"}
           element={
             <Wrapper>
               <Home />

@@ -1,4 +1,5 @@
 import { ModalType } from "../components/Modal";
+import { logout } from "./user";
 
 export function catchServerError(
   err: any,
@@ -9,8 +10,10 @@ export function catchServerError(
   }) => void
 ): any {
   if (err.response.status === 401 || err.response.status === 403) {
-    setModalType(ModalType.Authentication);
-    return;
+    logout().then(() => {
+      setModalType(ModalType.Authentication);
+      return;
+    });
   }
   if (
     err.response.data.msg === "Insufficient balance" ||
