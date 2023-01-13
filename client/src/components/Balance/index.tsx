@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const balanceAtom = atom<number>(10);
+export const balanceAtom = atom<number | undefined>(undefined);

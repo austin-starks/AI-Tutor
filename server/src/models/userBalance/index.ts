@@ -5,7 +5,7 @@ export class InsufficientBalanceError extends Error {}
 
 class Balance {
   static newBalance = async (user: User) => {
-    return BalanceModel.create({ user: user.id, balance: 10 });
+    return BalanceModel.create({ user: user.id, balance: 20 });
   };
 
   static addBalance = async (user: User, amount: number) => {

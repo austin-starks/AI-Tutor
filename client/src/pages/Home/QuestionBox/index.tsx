@@ -21,11 +21,12 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import RenderQuestion from "./RenderQuestion";
 import Cookies from "js-cookie";
+import _ from "lodash";
 
 interface QuestionBoxProps {
   onSubmit: (question: QuestionRequest) => void;
   costs: QuestionCost | null;
-  balance: number;
+  balance?: number;
 }
 
 const validationSchema = yup.object({
@@ -189,7 +190,7 @@ const QuestionBox = (props: QuestionBoxProps) => {
             </Button>
           )}
         </Grid>
-        {Cookies.get("jwt") && (
+        {Cookies.get("jwt") && !_.isNil(props.balance) && (
           <Grid margin={"0 auto"} textAlign="center" item xs={6} sm={3}>
             <Typography variant="body2">
               Balance: {props.balance} Coins
