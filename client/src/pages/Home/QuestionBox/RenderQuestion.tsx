@@ -94,6 +94,7 @@ const RenderQuestion = (props: { formik: any }) => {
               label={field.label}
               multiline={field.type !== "number"}
               variant="outlined"
+              minRows={5}
               id={field.name}
               name={field.name}
               value={formik.values["question"][field.name]}

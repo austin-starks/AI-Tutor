@@ -8,7 +8,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import {
@@ -22,6 +21,7 @@ import { useFormik } from "formik";
 import RenderQuestion from "./RenderQuestion";
 import Cookies from "js-cookie";
 import _ from "lodash";
+import AdvancedSearch from "./AdvancedSearch";
 
 interface QuestionBoxProps {
   onSubmit: (question: QuestionRequest) => void;
@@ -151,30 +151,12 @@ const QuestionBox = (props: QuestionBoxProps) => {
             <FormHelperText>{formik.errors["questionType"]}</FormHelperText>
           </FormControl>
         </Grid>
-        {formik.values["questionType"] !== QuestionTypeEnum.OTHER && (
-          <Grid item xs={12} md={12}>
-            <TextField
-              placeholder={`The more context you give the model about the question, the better the answer. For example, "This is a question on a past AP Chemistry exam. We studied this on Chapter 7 of "Chemistry and their Reactions" textbook by Tom Ruttledge."`}
-              error={Boolean(formik.errors["context"])}
-              helperText={formik.errors["context"]}
-              fullWidth
-              label={"Context"}
-              multiline
-              variant="outlined"
-              id={"context"}
-              name={"context"}
-              value={formik.values["context"]}
-              onChange={(e) => {
-                formik.setFieldValue(`context`, e.target.value, false);
-              }}
-            />
-          </Grid>
-        )}
+
         <Grid item xs={12}>
           <RenderQuestion formik={formik} />
         </Grid>
       </Grid>
-
+      <AdvancedSearch formik={formik} />
       <Grid container display={"flex"} justifyContent="space-between">
         <Grid margin={"0 auto"} textAlign="center" item mb={2} xs={12} sm={3}>
           {formik.isSubmitting ? (

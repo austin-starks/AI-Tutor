@@ -30,11 +30,13 @@ export const IconContainer = styled(Box)`
 `;
 
 export const SidebarLink = styled("div")`
+  padding-top: 25%;
   color: white;
   font-family: "Stencil Std", sans-serif;
   width: 100%;
   height: 100%;
-  padding-top: 50%;
+  top: 50%;
+  align-items: center;
   text-align: center;
   z-index: 1;
   &:hover {

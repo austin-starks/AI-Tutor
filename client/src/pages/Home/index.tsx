@@ -11,6 +11,7 @@ import {
   getQuestionCosts,
   QuestionCost,
   QuestionRequest,
+  SubjectEnum,
 } from "../../requests/question";
 import { getBalance } from "../../requests/user";
 import AnswerBox from "./AnswerBox";
@@ -20,42 +21,50 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import BiotechIcon from "@mui/icons-material/Biotech";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import ComputerIcon from "@mui/icons-material/Computer";
 
 const sidebarLinks = [
   {
-    text: "General",
+    text: SubjectEnum.GENERAL,
     onClick: () => {
       alert("Feature coming soon!");
     },
     icon: <QuestionMarkIcon />,
   },
   {
-    text: "Science",
+    text: SubjectEnum.SCIENCE,
     onClick: () => {
       alert("Feature coming soon!");
     },
     icon: <BiotechIcon />,
   },
   {
-    text: "English",
+    text: SubjectEnum.ENGLISH,
     onClick: () => {
       alert("Feature coming soon!");
     },
     icon: <AutoStoriesIcon />,
   },
   {
-    text: "History",
+    text: SubjectEnum.HISTORY,
     onClick: () => {
       alert("Feature coming soon!");
     },
     icon: <MenuBookIcon />,
   },
   {
-    text: "Math",
+    text: SubjectEnum.MATH,
     onClick: () => {
       alert("Feature coming soon!");
     },
     icon: <CalculateIcon />,
+  },
+  {
+    text: "Computing",
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <ComputerIcon />,
   },
 ];
 
@@ -104,7 +113,7 @@ const Home = () => {
   return (
     <Box margin="1.5rem auto" width={"85%"}>
       <Banner banner={banner} handleClose={handleClose} />
-      <SideBar links={sidebarLinks} />
+      {/* <SideBar links={sidebarLinks} /> */}
       <Box>
         <Typography variant="body2" color="text.secondary" align="center">
           Please note that we are in active development to make the AI faster
