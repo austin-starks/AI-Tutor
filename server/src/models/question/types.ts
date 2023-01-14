@@ -44,10 +44,10 @@ export interface AdditionalOption {
 }
 
 export enum SubjectEnum {
-  MATH = "math",
-  SCIENCE = "science",
-  ENGLISH = "english",
-  HISTORY = "history",
+  MATH = "Math",
+  SCIENCE = "Science",
+  ENGLISH = "English",
+  HISTORY = "History",
   GENERAL = "General",
 }
 

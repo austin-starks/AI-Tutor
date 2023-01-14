@@ -34,9 +34,8 @@ export const SidebarLink = styled("div")`
   font-family: "Stencil Std", sans-serif;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 50%;
+  text-align: center;
   z-index: 1;
   &:hover {
     cursor: pointer;

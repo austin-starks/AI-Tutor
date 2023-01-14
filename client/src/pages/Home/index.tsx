@@ -15,37 +15,47 @@ import {
 import { getBalance } from "../../requests/user";
 import AnswerBox from "./AnswerBox";
 import QuestionBox from "./QuestionBox";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import BiotechIcon from "@mui/icons-material/Biotech";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 
 const sidebarLinks = [
   {
     text: "General",
     onClick: () => {
-      console.log("General");
+      alert("Feature coming soon!");
     },
-  },
-  {
-    text: "Math",
-    onClick: () => {
-      console.log("Math");
-    },
+    icon: <QuestionMarkIcon />,
   },
   {
     text: "Science",
     onClick: () => {
-      console.log("Science");
+      alert("Feature coming soon!");
     },
-  },
-  {
-    text: "History",
-    onClick: () => {
-      console.log("History");
-    },
+    icon: <BiotechIcon />,
   },
   {
     text: "English",
     onClick: () => {
-      console.log("English");
+      alert("Feature coming soon!");
     },
+    icon: <AutoStoriesIcon />,
+  },
+  {
+    text: "History",
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <MenuBookIcon />,
+  },
+  {
+    text: "Math",
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <CalculateIcon />,
   },
 ];
 

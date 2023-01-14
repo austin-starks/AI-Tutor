@@ -41,11 +41,11 @@ export interface AdditionalOption {
 }
 
 export enum SubjectEnum {
-  MATH = "math",
-  SCIENCE = "science",
-  ENGLISH = "english",
-  HISTORY = "history",
   GENERAL = "General",
+  SCIENCE = "Science",
+  ENGLISH = "English",
+  HISTORY = "History",
+  MATH = "Math",
 }
 
 export enum QuestionTypeEnum {
