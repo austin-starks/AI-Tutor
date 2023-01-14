@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { balanceAtom } from "../../components/Balance";
 import Banner, { bannerAtom, useAtom } from "../../components/Banner";
 import { modalAtom } from "../../components/Modal";
+import SideBar from "../../components/Sidebar";
 import { catchServerError } from "../../requests/common";
 import {
   ask,
@@ -14,6 +15,39 @@ import {
 import { getBalance } from "../../requests/user";
 import AnswerBox from "./AnswerBox";
 import QuestionBox from "./QuestionBox";
+
+const sidebarLinks = [
+  {
+    text: "General",
+    onClick: () => {
+      console.log("General");
+    },
+  },
+  {
+    text: "Math",
+    onClick: () => {
+      console.log("Math");
+    },
+  },
+  {
+    text: "Science",
+    onClick: () => {
+      console.log("Science");
+    },
+  },
+  {
+    text: "History",
+    onClick: () => {
+      console.log("History");
+    },
+  },
+  {
+    text: "English",
+    onClick: () => {
+      console.log("English");
+    },
+  },
+];
 
 const Home = () => {
   const [answer, setAnswer] = useState<string>("");
@@ -60,6 +94,7 @@ const Home = () => {
   return (
     <Box margin="1.5rem auto" width={"85%"}>
       <Banner banner={banner} handleClose={handleClose} />
+      <SideBar links={sidebarLinks} />
       <Box>
         <Typography variant="body2" color="text.secondary" align="center">
           Please note that we are in active development to make the AI faster

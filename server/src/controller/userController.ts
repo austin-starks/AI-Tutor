@@ -62,7 +62,7 @@ class UserController {
         secure: process.env.NODE_ENV !== "development",
       });
       const balance = await Balance.getBalance(user);
-      res.status(201).json({ message: "User created successfully", balance });
+      res.status(201).json({ message: "Authentication succeeded", balance });
     } catch (e) {
       const [statusCode, errMsg] = this.handleRegistrationErrors(e);
       res.status(statusCode).json({ message: errMsg });
@@ -79,7 +79,7 @@ class UserController {
     }
   };
 
-  async getBalance(req: Request, res: Response) {
+  getBalance = async (req: Request, res: Response) => {
     try {
       const balance = await Balance.getBalance(req.user);
       res.status(200).json({ balance });
@@ -87,7 +87,7 @@ class UserController {
       console.log(error);
       res.status(500).json({ message: error.message });
     }
-  }
+  };
 }
 
 export default new UserController();

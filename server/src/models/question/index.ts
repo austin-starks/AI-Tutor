@@ -10,6 +10,7 @@ import {
   QuestionResponse,
   QuestionTypeEnum,
   ShortAnswer,
+  SubjectEnum,
 } from "./types";
 import QuestionModel from "./schema";
 import Balance from "../userBalance";
@@ -60,9 +61,10 @@ class Question {
     const additionalContext = question.context
       ? `Context: ${question.context}\n\n`
       : "";
-    const subjectContext = question.subject
-      ? `Subject: ${question.subject}\n\n`
-      : "";
+    const subjectContext =
+      question.subject === SubjectEnum.GENERAL
+        ? ""
+        : `Subject: ${question.subject}\n\n`;
     return `${additionalContext}${subjectContext}${this.getQuestion(question)}`;
   }
 

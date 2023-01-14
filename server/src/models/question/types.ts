@@ -48,7 +48,7 @@ export enum SubjectEnum {
   SCIENCE = "science",
   ENGLISH = "english",
   HISTORY = "history",
-  GENERAL = "",
+  GENERAL = "General",
 }
 
 export enum QuestionTypeEnum {
