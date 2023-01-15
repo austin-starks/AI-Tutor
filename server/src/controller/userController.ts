@@ -1,3 +1,4 @@
+import Referral from "../models/referral";
 import User from "../models/user";
 import Balance from "../models/userBalance";
 import { LoginRequest, RegistrationRequest, Response, Request } from "./types";
@@ -83,6 +84,16 @@ class UserController {
     try {
       const balance = await Balance.getBalance(req.user);
       res.status(200).json({ balance });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+  getReferralCode = async (req: Request, res: Response) => {
+    try {
+      const referralCode = await Referral.getCode(req.user);
+      res.status(200).json({ referralCode });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error.message });
