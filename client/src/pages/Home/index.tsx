@@ -11,62 +11,10 @@ import {
   getQuestionCosts,
   QuestionCost,
   QuestionRequest,
-  SubjectEnum,
 } from "../../requests/question";
 import { getBalance } from "../../requests/user";
 import AnswerBox from "./AnswerBox";
 import QuestionBox from "./QuestionBox";
-import CalculateIcon from "@mui/icons-material/Calculate";
-import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import BiotechIcon from "@mui/icons-material/Biotech";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
-import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import ComputerIcon from "@mui/icons-material/Computer";
-
-const sidebarLinks = [
-  {
-    text: SubjectEnum.GENERAL,
-    onClick: () => {
-      alert("Feature coming soon!");
-    },
-    icon: <QuestionMarkIcon />,
-  },
-  {
-    text: SubjectEnum.SCIENCE,
-    onClick: () => {
-      alert("Feature coming soon!");
-    },
-    icon: <BiotechIcon />,
-  },
-  {
-    text: SubjectEnum.ENGLISH,
-    onClick: () => {
-      alert("Feature coming soon!");
-    },
-    icon: <AutoStoriesIcon />,
-  },
-  {
-    text: SubjectEnum.HISTORY,
-    onClick: () => {
-      alert("Feature coming soon!");
-    },
-    icon: <MenuBookIcon />,
-  },
-  {
-    text: SubjectEnum.MATH,
-    onClick: () => {
-      alert("Feature coming soon!");
-    },
-    icon: <CalculateIcon />,
-  },
-  {
-    text: "Computing",
-    onClick: () => {
-      alert("Feature coming soon!");
-    },
-    icon: <ComputerIcon />,
-  },
-];
 
 const Home = () => {
   const [answer, setAnswer] = useState<string>("");

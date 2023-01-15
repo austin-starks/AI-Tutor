@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 import { useAtom } from "jotai";
 import { modalAtom, ModalType } from "../Modal";
 import { bannerAtom } from "../Banner";
+import { useNavigate } from "react-router-dom";
 
 const appName = "StarkTech Tutor";
 
@@ -41,6 +42,7 @@ function ResponsiveAppBar(props: { sx?: any }) {
 
   const [, setModalType] = useAtom(modalAtom);
   const [, setBanner] = useAtom(bannerAtom);
+  const navigate = useNavigate();
   const pages: { name: string; onClick: () => void }[] = [
     {
       name: "Get Free Coins",
@@ -63,7 +65,7 @@ function ResponsiveAppBar(props: { sx?: any }) {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate("/app")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -71,6 +73,9 @@ function ResponsiveAppBar(props: { sx?: any }) {
               textDecoration: "none",
               fontFamily: "monospace",
               fontWeight: 700,
+              "&:hover": {
+                cursor: "pointer",
+              },
             }}
           >
             {appName}

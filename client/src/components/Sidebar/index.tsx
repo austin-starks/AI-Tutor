@@ -1,15 +1,60 @@
 import { IconContainer, Sidebar, SidebarLink } from "./styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, SvgIconTypeMap } from "@mui/material";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { Box } from "@mui/material";
+import { SubjectEnum } from "../../requests/question";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import BiotechIcon from "@mui/icons-material/Biotech";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import ComputerIcon from "@mui/icons-material/Computer";
 
-interface SidebarProps {
-  links: {
-    onClick: () => void;
-    text: string;
-    icon: React.ReactElement;
-  }[];
-}
+const sidebarLinks = [
+  {
+    text: SubjectEnum.GENERAL,
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <QuestionMarkIcon />,
+  },
+  {
+    text: SubjectEnum.SCIENCE,
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <BiotechIcon />,
+  },
+  {
+    text: SubjectEnum.ENGLISH,
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <AutoStoriesIcon />,
+  },
+  {
+    text: SubjectEnum.HISTORY,
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <MenuBookIcon />,
+  },
+  {
+    text: SubjectEnum.MATH,
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <CalculateIcon />,
+  },
+  {
+    text: "Computing",
+    onClick: () => {
+      alert("Feature coming soon!");
+    },
+    icon: <ComputerIcon />,
+  },
+];
+
+interface SidebarProps {}
 
 const SideBar = (props: SidebarProps) => {
   return (
@@ -18,7 +63,7 @@ const SideBar = (props: SidebarProps) => {
         <MenuIcon />
       </IconContainer>
       <Sidebar>
-        {props.links.map((link) => {
+        {sidebarLinks.map((link) => {
           return (
             <SidebarLink onClick={link.onClick}>
               <Box my={1}>{link.text}</Box>
