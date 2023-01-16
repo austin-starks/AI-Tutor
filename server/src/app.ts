@@ -6,6 +6,7 @@ import rateSlow from "express-slow-down";
 import logger from "morgan";
 import path from "path";
 import indexRouter from "./routes";
+import eventRouter from "./routes/event";
 import questionRouter from "./routes/question";
 import paymentRouter from "./routes/payment";
 import userRouter from "./routes/user";
@@ -49,6 +50,7 @@ app.use(
 app.set("trust proxy", 1);
 
 app.use("/api", indexRouter);
+app.use("/api/event", eventRouter);
 app.use("/api/question", questionRouter);
 app.use("/api/payment", paymentRouter);
 app.use("/api/user", userRouter);

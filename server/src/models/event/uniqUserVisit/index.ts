@@ -25,11 +25,10 @@ const UniqueUserCounterModel = model<UniqueUserCounterInterface>(
 export default class UniqueUserCounter {
   static async incrementCount() {
     const currentDate = new Date().toISOString().slice(0, 10);
-    const model = await UniqueUserCounterModel.findOne({ date: currentDate });
-    if (!model) {
-      return UniqueUserCounterModel.create({ date: currentDate, count: 1 });
-    }
-    model.count += 1;
-    return model.save();
+    return UniqueUserCounterModel.updateOne(
+      { date: currentDate },
+      { $inc: { count: 1 } },
+      { upsert: true }
+    );
   }
 }

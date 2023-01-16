@@ -34,6 +34,7 @@ const Wrapper = (props: { children: React.ReactNode }) => {
     setBanner((b) => ({ ...b, message: "" }));
   };
   const [, setBalance] = useAtom(balanceAtom);
+  console.log("Wrapper render");
 
   return (
     <>
@@ -83,6 +84,7 @@ const Wrapper = (props: { children: React.ReactNode }) => {
 };
 
 const Router = () => {
+  console.log("Router render");
   return (
     <Elements stripe={stripePromise}>
       <Styles />

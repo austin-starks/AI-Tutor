@@ -2,12 +2,23 @@ import { useEffect } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { landingPageStyle } from "./styles";
 import { Slide } from "react-awesome-reveal";
-import { countUniqueUsers } from "../../requests/user";
+import { countUniqueUsers, countCallToAction } from "../../requests/event";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
-  useEffect(() => {
-    countUniqueUsers();
-  }, []);
+  // useEffect(() => {
+  //   countUniqueUsers();
+  //   console.log("useEffect");
+  // }, []);
+
+  const navigate = useNavigate();
+
+  const navigateTo = async (path: string, id: number) => {
+    navigate(path);
+    countCallToAction(id);
+  };
+
+  console.log("Render");
   return (
     <div>
       <Slide direction="down">
@@ -27,7 +38,12 @@ const LandingPage = () => {
                 comprehensive coverage, and learning AI technology.
               </Typography>
               <Box my={3}></Box>
-              <Button variant="contained" href="/app">
+              <Button
+                onClick={() => {
+                  navigateTo("/app", 0);
+                }}
+                variant="contained"
+              >
                 Try for Free
               </Button>
             </Grid>
@@ -75,7 +91,12 @@ const LandingPage = () => {
                 below!
               </Typography>
               <Box mt={3} textAlign={"center"}>
-                <Button variant="contained" href="/app">
+                <Button
+                  onClick={() => {
+                    navigateTo("/app", 1);
+                  }}
+                  variant="contained"
+                >
                   Try for Free
                 </Button>
               </Box>
@@ -142,7 +163,12 @@ const LandingPage = () => {
             need to succeed!
           </Typography>
           <Box mt={3} textAlign={"center"}>
-            <Button variant="contained" href="/app">
+            <Button
+              onClick={() => {
+                navigateTo("/app", 2);
+              }}
+              variant="contained"
+            >
               Try for Free
             </Button>
           </Box>

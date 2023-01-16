@@ -1,7 +1,7 @@
 import Question from "../models/question";
 import { QuestionRequest } from "../models/question/types";
-import Balance from "../models/userBalance";
 import { handleError } from "./common";
+import eventController from "./eventController";
 import { Response, Request } from "./types";
 
 class QuestionController {
@@ -11,6 +11,7 @@ class QuestionController {
         req.body as QuestionRequest,
         req.user
       );
+      eventController.__countUniqueSubmitRequests(req, res);
       res.status(200).json(response);
     } catch (err) {
       console.log(err);

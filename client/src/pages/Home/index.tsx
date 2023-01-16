@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { balanceAtom } from "../../components/Balance";
 import Banner, { bannerAtom, useAtom } from "../../components/Banner";
 import { modalAtom } from "../../components/Modal";
-import SideBar from "../../components/Sidebar";
 import { catchServerError } from "../../requests/common";
 import {
   ask,
