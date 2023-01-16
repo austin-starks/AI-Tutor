@@ -3,22 +3,22 @@ import { Box, Button, Grid, Typography } from "@mui/material";
 import { landingPageStyle } from "./styles";
 import { Slide } from "react-awesome-reveal";
 import { countUniqueUsers, countCallToAction } from "../../requests/event";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const LandingPage = () => {
-  // useEffect(() => {
-  //   countUniqueUsers();
-  //   console.log("useEffect");
-  // }, []);
+  const [searchParams] = useSearchParams();
+  const ref = searchParams.get("ref") || "";
+  useEffect(() => {
+    countUniqueUsers({ ref });
+  }, []);
 
   const navigate = useNavigate();
 
   const navigateTo = async (path: string, id: number) => {
     navigate(path);
-    countCallToAction(id);
+    countCallToAction({ id, ref });
   };
 
-  console.log("Render");
   return (
     <div>
       <Slide direction="down">

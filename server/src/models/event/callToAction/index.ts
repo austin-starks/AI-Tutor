@@ -1,9 +1,11 @@
 import { Schema, model, Document } from "mongoose";
+import { EventMetadata } from "../types";
 
 interface CallToAction {
   date: Date;
   count: number;
   buttonId: number;
+  ref?: string;
 }
 
 const CallToActionCounterSchema = new Schema<CallToAction>({
@@ -14,6 +16,7 @@ const CallToActionCounterSchema = new Schema<CallToAction>({
   },
   count: { type: Number, required: true, unique: true },
   buttonId: { type: Number, required: true },
+  ref: { type: String },
 });
 
 type CallToActionCounterModel = CallToAction & Document<CallToAction>;
@@ -24,10 +27,12 @@ const CallToActionCounterModel = model<CallToAction>(
 );
 
 export default class CallToActionCounter {
-  static async incrementCount(buttonId: number) {
+  static async incrementCount(metadata: EventMetadata) {
+    const buttonId = metadata?.id;
+    const ref = metadata?.ref;
     const currentDate = new Date().toISOString().slice(0, 10);
     return CallToActionCounterModel.updateOne(
-      { date: currentDate, buttonId },
+      { date: currentDate, buttonId, ref },
       { $inc: { count: 1 } },
       { upsert: true }
     );

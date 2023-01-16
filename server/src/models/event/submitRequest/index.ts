@@ -1,8 +1,10 @@
 import { Schema, model, Document } from "mongoose";
+import { EventMetadata } from "../types";
 
 interface SubmitRequestCounterInterface {
   date: Date;
   count: number;
+  ref?: string;
 }
 
 const SubmitRequestCounterSchema = new Schema<SubmitRequestCounterInterface>({
@@ -11,6 +13,7 @@ const SubmitRequestCounterSchema = new Schema<SubmitRequestCounterInterface>({
     required: true,
     default: new Date(new Date().toISOString().slice(0, 10)),
   },
+  ref: { type: String },
   count: { type: Number, required: true, unique: true },
 });
 
@@ -23,10 +26,11 @@ const SubmitRequestCounterModel = model<SubmitRequestCounterInterface>(
 );
 
 export default class SubmitRequestCounter {
-  static async incrementCount() {
+  static async incrementCount(body?: EventMetadata) {
+    const ref = body?.ref;
     const currentDate = new Date().toISOString().slice(0, 10);
     return SubmitRequestCounterModel.updateOne(
-      { date: currentDate },
+      { date: currentDate, ref },
       { $inc: { count: 1 } },
       { upsert: true }
     );

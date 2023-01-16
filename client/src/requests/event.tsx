@@ -1,5 +1,11 @@
 import axios from "axios";
 
-export const countUniqueUsers = () => axios.post(`/api/event/uniqueUsers`);
-export const countCallToAction = (id: number) =>
-  axios.post(`/api/event/callToAction`, { id });
+interface EventMetadata {
+  id?: number;
+  ref: string;
+}
+
+export const countUniqueUsers = (metadata: EventMetadata) =>
+  axios.post(`/api/event/uniqueUsers`, metadata);
+export const countCallToAction = (metadata: EventMetadata) =>
+  axios.post(`/api/event/callToAction`, metadata);

@@ -1,8 +1,10 @@
 import { Schema, model, Document } from "mongoose";
+import { EventMetadata } from "../types";
 
 interface UniqueUserCounterInterface {
   date: Date;
   count: number;
+  ref?: string;
 }
 
 const UniqueUserCounterSchema = new Schema<UniqueUserCounterInterface>({
@@ -12,6 +14,7 @@ const UniqueUserCounterSchema = new Schema<UniqueUserCounterInterface>({
     default: new Date(new Date().toISOString().slice(0, 10)),
   },
   count: { type: Number, required: true, unique: true },
+  ref: { type: String },
 });
 
 type UniqueUserCounterModel = UniqueUserCounter &
@@ -23,10 +26,11 @@ const UniqueUserCounterModel = model<UniqueUserCounterInterface>(
 );
 
 export default class UniqueUserCounter {
-  static async incrementCount() {
+  static async incrementCount(body?: EventMetadata) {
+    const ref = body?.ref;
     const currentDate = new Date().toISOString().slice(0, 10);
     return UniqueUserCounterModel.updateOne(
-      { date: currentDate },
+      { date: currentDate, ref },
       { $inc: { count: 1 } },
       { upsert: true }
     );
