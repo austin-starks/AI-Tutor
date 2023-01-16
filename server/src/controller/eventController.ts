@@ -13,7 +13,7 @@ class UserController {
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
     res.cookie("analaytics_uniqId", uniqId);
-    await UniqueUserCounter.incrementCount();
+    await UniqueUserCounter.incrementCount(req.body);
     res.status(200).send();
   };
 
@@ -29,7 +29,7 @@ class UserController {
       "analaytics_uniqCallToAction",
       req.cookies.analaytics_uniqId || uniqId
     );
-    await CallToActionCounter.incrementCount(req.body.id);
+    await CallToActionCounter.incrementCount(req.body);
     res.status(200).send();
   };
 

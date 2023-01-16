@@ -13,7 +13,7 @@ const UniqueUserCounterSchema = new Schema<UniqueUserCounterInterface>({
     required: true,
     default: new Date(new Date().toISOString().slice(0, 10)),
   },
-  count: { type: Number, required: true, unique: true },
+  count: { type: Number, required: true, unique: false },
   ref: { type: String },
 });
 
@@ -26,7 +26,8 @@ const UniqueUserCounterModel = model<UniqueUserCounterInterface>(
 );
 
 export default class UniqueUserCounter {
-  static async incrementCount(body?: EventMetadata) {
+  static async incrementCount(body: EventMetadata) {
+    console.log("metadata", body);
     const ref = body?.ref;
     const currentDate = new Date().toISOString().slice(0, 10);
     return UniqueUserCounterModel.updateOne(

@@ -14,7 +14,7 @@ const SubmitRequestCounterSchema = new Schema<SubmitRequestCounterInterface>({
     default: new Date(new Date().toISOString().slice(0, 10)),
   },
   ref: { type: String },
-  count: { type: Number, required: true, unique: true },
+  count: { type: Number, required: true, unique: false },
 });
 
 type SubmitRequestCounterModel = SubmitRequestCounter &

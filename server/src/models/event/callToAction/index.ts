@@ -14,7 +14,7 @@ const CallToActionCounterSchema = new Schema<CallToAction>({
     required: true,
     default: new Date(new Date().toISOString().slice(0, 10)),
   },
-  count: { type: Number, required: true, unique: true },
+  count: { type: Number, required: true, unique: false },
   buttonId: { type: Number, required: true },
   ref: { type: String },
 });

@@ -15,8 +15,8 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const navigateTo = async (path: string, id: number) => {
-    navigate(path);
     countCallToAction({ id, ref });
+    navigate(path);
   };
 
   return (
