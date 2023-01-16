@@ -1,4 +1,5 @@
 import Referral from "../models/referral";
+import UniqueUserCounter from "../models/uniqUserCounter";
 import User from "../models/user";
 import Balance from "../models/userBalance";
 import { LoginRequest, RegistrationRequest, Response, Request } from "./types";
@@ -98,6 +99,19 @@ class UserController {
       console.log(error);
       res.status(500).json({ message: error.message });
     }
+  };
+
+  incrementCount = async (req: Request, res: Response) => {
+    if (req.cookies.uniqId) {
+      return res.status(200).json({ message: "Server is healthy!" });
+    }
+    // generate a random string
+    const uniqId =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+    res.cookie("uniqId", uniqId);
+    await UniqueUserCounter.incrementCount();
+    res.status(200).json({ message: "Server is healthy!" });
   };
 }
 

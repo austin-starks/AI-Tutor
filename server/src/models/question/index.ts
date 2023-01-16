@@ -149,7 +149,7 @@ class Question {
         `${alphabet[i]}. ${question.answerChoices[i]}`
       );
     }
-    return `The multiple choice question is: ${question.question} The choices are: ${answerChoices}. The correct answer is`;
+    return `The multiple choice question is: ${question.question} The choices are: ${answerChoices}. The correct answer is _ (explain the answer in detail)`;
   }
 
   getModel(question: QuestionRequest) {

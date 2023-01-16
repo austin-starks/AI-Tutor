@@ -1,9 +1,13 @@
-import React from "react";
+import { useEffect } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { landingPageStyle } from "./styles";
 import { Slide } from "react-awesome-reveal";
+import { countUniqueUsers } from "../../requests/user";
 
 const LandingPage = () => {
+  useEffect(() => {
+    countUniqueUsers();
+  }, []);
   return (
     <div>
       <Slide direction="down">

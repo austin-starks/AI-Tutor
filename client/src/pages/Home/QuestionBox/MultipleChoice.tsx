@@ -50,6 +50,7 @@ const MultipleChoiceForm = (props: MultipleChoiceProps) => {
           fullWidth
           error={Boolean(questionError)}
           helperText={questionError}
+          multiline
           label="Question"
           name="question"
           placeholder="Enter your question here"
@@ -71,6 +72,8 @@ const MultipleChoiceForm = (props: MultipleChoiceProps) => {
                   helperText={answerError}
                   key={aIndex}
                   fullWidth
+                  type="text"
+                  multiline
                   name={`answerChoices[${aIndex}]`}
                   label={`Answer ${aIndex + 1}`}
                   value={answer}
