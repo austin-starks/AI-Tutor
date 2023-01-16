@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const LandingPage = () => {
   const [searchParams] = useSearchParams();
-  const ref = searchParams.get("ref") || "";
+  const ref = searchParams.get("ref");
   useEffect(() => {
     countUniqueUsers({ ref });
   }, []);

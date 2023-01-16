@@ -19,7 +19,7 @@ const Home = () => {
   const [answer, setAnswer] = useState<string>("");
   const [lastSubmittedQuestion, setLastSubmittedQuestion] =
     useState<QuestionRequest | null>(null);
-  const [lastQuestionId, setLastQuestionId] = useState<string>("null");
+  const [lastQuestionId, setLastQuestionId] = useState<string>("");
   const [, setModalType] = useAtom(modalAtom);
   const [banner, setBanner] = useAtom(bannerAtom);
   const handleClose = () => {

@@ -2,7 +2,7 @@ import axios from "axios";
 
 interface EventMetadata {
   id?: number;
-  ref: string;
+  ref: string | null;
 }
 
 export const countUniqueUsers = (metadata: EventMetadata) =>

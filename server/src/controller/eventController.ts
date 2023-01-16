@@ -2,6 +2,7 @@ import SubmitRequestsCounter from "../models/event/submitRequest";
 import UniqueUserCounter from "../models/event/uniqUserVisit";
 import { Response, Request } from "./types";
 import CallToActionCounter from "../models/event/callToAction";
+import { NextFunction } from "express";
 
 class UserController {
   countUniqueUsers = async (req: Request, res: Response) => {
@@ -33,9 +34,13 @@ class UserController {
     res.status(200).send();
   };
 
-  __countUniqueSubmitRequests = async (req: Request, res: Response) => {
+  __middleware_countUniqueSubmitRequests = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     if (req.cookies.analaytics_uniqSubmitRequests) {
-      return;
+      return next();
     }
     // generate a random string
     const uniqId =
@@ -46,6 +51,7 @@ class UserController {
       req.cookies.analaytics_uniqId || uniqId
     );
     await SubmitRequestsCounter.incrementCount();
+    next();
   };
 }
 
