@@ -1,16 +1,12 @@
-import { useEffect } from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { landingPageStyle } from "./styles";
 import { Slide } from "react-awesome-reveal";
-import { countUniqueUsers, countCallToAction } from "../../requests/event";
+import { countCallToAction } from "../../requests/event";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 const LandingPage = () => {
   const [searchParams] = useSearchParams();
   const ref = searchParams.get("ref");
-  useEffect(() => {
-    countUniqueUsers({ ref });
-  }, []);
 
   const navigate = useNavigate();
 
@@ -40,7 +36,7 @@ const LandingPage = () => {
               <Box my={3}></Box>
               <Button
                 onClick={() => {
-                  navigateTo("/app", 0);
+                  navigateTo("/", 0);
                 }}
                 variant="contained"
               >
@@ -93,7 +89,7 @@ const LandingPage = () => {
               <Box mt={3} textAlign={"center"}>
                 <Button
                   onClick={() => {
-                    navigateTo("/app", 1);
+                    navigateTo("/", 1);
                   }}
                   variant="contained"
                 >
@@ -165,7 +161,7 @@ const LandingPage = () => {
           <Box mt={3} textAlign={"center"}>
             <Button
               onClick={() => {
-                navigateTo("/app", 2);
+                navigateTo("/", 2);
               }}
               variant="contained"
             >

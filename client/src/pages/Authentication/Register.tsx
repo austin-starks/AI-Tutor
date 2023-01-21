@@ -9,6 +9,7 @@ import { AuthProps } from ".";
 import { bannerAtom, useAtom } from "../../components/Banner";
 import { register } from "../../requests/user";
 import validator from "validator";
+import { useSearchParams } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup.string().email().required("Email is required"),
@@ -22,11 +23,13 @@ const validationSchema = yup.object({
     .test("is-phone-number", "Invalid phone number", (value) =>
       validator.isMobilePhone(value || "")
     ),
+  referralCode: yup.string(),
 });
 
 const RegistrationPage = (props: AuthProps) => {
   const [, setBanner] = useAtom(bannerAtom);
-
+  const [searchParams] = useSearchParams();
+  const referralCode = searchParams.get("referralCode");
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -35,6 +38,7 @@ const RegistrationPage = (props: AuthProps) => {
       password: "",
       phoneNumber: "",
       remember: true,
+      referralCode: referralCode || "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -103,6 +107,21 @@ const RegistrationPage = (props: AuthProps) => {
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
           helperText={formik.touched.password && formik.errors.password}
+        />
+        <div style={{ marginTop: "10px" }}></div>
+        <TextField
+          fullWidth
+          id="referralCode"
+          name="referralCode"
+          label="Referral Code (Optional)"
+          type="referralCode"
+          autoComplete="off"
+          value={formik.values.referralCode}
+          onChange={formik.handleChange}
+          error={
+            formik.touched.referralCode && Boolean(formik.errors.referralCode)
+          }
+          helperText={formik.touched.referralCode && formik.errors.referralCode}
         />
         <div style={{ marginTop: "10px" }}></div>
         <Box

@@ -2,7 +2,6 @@ import { Request, Response } from "./types";
 import Stripe from "stripe";
 import "dotenv/config";
 import { handleError } from "./common";
-import Balance from "../models/userBalance";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2022-11-15",
@@ -33,7 +32,7 @@ class PaymentController {
         payment_method: id,
         confirm: true,
       });
-      const balance = await Balance.addBalance(req.user, req.body.amount);
+      const balance = await req.user.addBalance(req.body.amount);
       // increment the number of tokens
       res.json({
         message: "Payment successful",

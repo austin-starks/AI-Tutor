@@ -1,14 +1,21 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import _ from "lodash";
 import { Document, model, Schema } from "mongoose";
 import validator from "validator";
+
+const DEFAULT_BALANCE = 100;
 
 export interface IUser {
   _id?: string;
   email: string;
   password: string;
   phoneNumber: string;
+  referredUsers?: any[];
+  balance?: number;
 }
+
+export class InsufficientBalanceError extends Error {}
 
 const transformPhoneNumber = (phoneNumber: string): string => {
   // Remove all non-digit characters from the phone number
@@ -56,6 +63,8 @@ const userSchema = new Schema<IUser>({
       return validator.isMobilePhone(value);
     },
   },
+  referredUsers: { type: [Schema.Types.ObjectId], ref: "User", default: [] },
+  balance: { type: Number, default: DEFAULT_BALANCE },
 });
 
 type UserModel = IUser & Document<IUser>;
@@ -78,6 +87,8 @@ export default class User implements IUser {
   email: string;
   password: string;
   phoneNumber: string;
+  referredUsers: string[];
+  balance: number;
 
   async save(): Promise<void> {
     if (this._id) {
@@ -96,12 +107,33 @@ export default class User implements IUser {
         : bcrypt.hashSync(obj.password, 12);
       this.email = obj.email;
       this.phoneNumber = obj.phoneNumber;
+      this.referredUsers = obj.referredUsers || [];
+      this.balance = _.isNil(obj.balance) ? DEFAULT_BALANCE : obj.balance;
     }
   }
 
   public get id(): string {
     return this._id;
   }
+
+  public async recordTransaction(amount: number) {
+    this.balance -= amount;
+    if (this.balance < 0) {
+      throw new InsufficientBalanceError("Insufficient balance");
+    }
+    await this.save();
+    return this.balance;
+  }
+
+  addBalance = async (amount: number) => {
+    this.balance += amount;
+    await this.save();
+    return this.balance;
+  };
+
+  getBalance = () => {
+    return this.balance;
+  };
 
   public async generateAuthToken(longExpiration = false) {
     if (!this.id) {

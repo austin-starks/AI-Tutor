@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { Styles } from "../styles/styles";
@@ -14,6 +14,8 @@ import { Box } from "@mui/system";
 import Referral from "../components/Referral";
 import { balanceAtom } from "../components/Balance";
 import LandingPage from "../pages/Landing";
+import { useEffect } from "react";
+import { countUniqueUsers } from "../requests/event";
 
 const stripePromise = loadStripe(
   "pk_test_51MNQuuLGasFw47mVwXPigNgzMK5W1IfVuUKqfnoyXztXOYj5KKQgLp2QD40kiwVwNF3Tf0EY2oXLbjwab8zajkMz00wkoxROsM"
@@ -34,7 +36,17 @@ const Wrapper = (props: { children: React.ReactNode }) => {
     setBanner((b) => ({ ...b, message: "" }));
   };
   const [, setBalance] = useAtom(balanceAtom);
-
+  const [searchParams] = useSearchParams();
+  const refLink = searchParams.get("ref");
+  const refCode = searchParams.get("referralCode");
+  useEffect(() => {
+    countUniqueUsers({ ref: refLink });
+  }, []);
+  useEffect(() => {
+    if (refCode) {
+      setModalType(ModalType.Authentication);
+    }
+  }, []);
   return (
     <>
       <Header />
@@ -46,6 +58,7 @@ const Wrapper = (props: { children: React.ReactNode }) => {
                 onSubmit={(obj) => {
                   setModalType("");
                   setBalance(obj.balance);
+                  searchParams.set("referralCode", "");
                 }}
               />
             )}
@@ -88,7 +101,7 @@ const Router = () => {
       <Styles />
       <Routes>
         <Route
-          path={"/"}
+          path={"/landing"}
           element={
             <Wrapper>
               <LandingPage />
@@ -96,7 +109,7 @@ const Router = () => {
           }
         />
         <Route
-          path={"/app"}
+          path={"/"}
           element={
             <Wrapper>
               <Home />

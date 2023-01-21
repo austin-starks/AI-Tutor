@@ -5,6 +5,7 @@ import auth from "../middleware/auth";
 const router = express.Router();
 
 router.get("/balance", auth.isAuthorized, userController.getBalance);
+router.get("/referralCode", auth.isAuthorized, userController.getReferralCode);
 router.post("/login", authenticationController.login);
 router.post("/register", authenticationController.register);
 router.post("/logout", authenticationController.logout);

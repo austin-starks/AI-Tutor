@@ -1,7 +1,6 @@
+import _ from "lodash";
 import Referral from "../models/referral";
-import UniqueUserCounter from "../models/event/uniqUserVisit";
 import User from "../models/user";
-import Balance from "../models/userBalance";
 import { LoginRequest, RegistrationRequest, Response, Request } from "./types";
 
 class UserController {
@@ -16,6 +15,8 @@ class UserController {
       return [400, "Invalid Username"];
     } else if (isMongoError && error.keyValue.phoneNumber) {
       return [400, "Phone number already registered"];
+    } else if (error.errors.phoneNumber) {
+      return [400, "Invalid phone number"];
     } else {
       return [400, "Undefined error"];
     }
@@ -40,7 +41,7 @@ class UserController {
         maxAge: cookieMaxAge,
         secure: process.env.NODE_ENV !== "development",
       });
-      const balance = await Balance.getBalance(user);
+      const balance = user.balance;
       res.status(200).json({ message: "Authentication succeeded", balance });
     } catch (err) {
       res.status(400).json({ message: "Invalid email and/or password" });
@@ -51,7 +52,21 @@ class UserController {
     let user: User;
     try {
       const userInfo = req.body;
+      if (userInfo.referralCode) {
+        console.log("Referral code: ", userInfo.referralCode);
+        const validCode = await Referral.checkCode(userInfo.referralCode);
+        console.log("Valid code: ", validCode);
+        if (!validCode) {
+          return res.status(400).json({ message: "Invalid referral code" });
+        }
+      }
+      console.log("Creating user");
       user = await User.create(userInfo);
+      if (userInfo.referralCode) {
+        console.log("Adding referral");
+        await Referral.addReferral(user, userInfo.referralCode);
+      }
+      console.log("Auth token");
       const token = await user.generateAuthToken(userInfo.remember);
       let cookieMaxAge = 1 * 24 * 60 * 60 * 1000;
       cookieMaxAge = userInfo.remember ? cookieMaxAge * 14 : cookieMaxAge;
@@ -63,9 +78,11 @@ class UserController {
         maxAge: cookieMaxAge,
         secure: process.env.NODE_ENV !== "development",
       });
-      const balance = await Balance.getBalance(user);
+      const balance = user.balance;
+      await Referral.getCode(user);
       res.status(201).json({ message: "Authentication succeeded", balance });
     } catch (e) {
+      console.log(e);
       const [statusCode, errMsg] = this.handleRegistrationErrors(e);
       res.status(statusCode).json({ message: errMsg });
     }
@@ -83,8 +100,7 @@ class UserController {
 
   getBalance = async (req: Request, res: Response) => {
     try {
-      const balance = await Balance.getBalance(req.user);
-      res.status(200).json({ balance });
+      res.status(200).json({ balance: req.user.balance });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: error.message });

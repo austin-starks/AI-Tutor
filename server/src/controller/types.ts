@@ -20,6 +20,7 @@ export interface RegistrationRequest extends Request {
     password: string;
     confirmPassword?: string;
     remember?: boolean;
+    referralCode?: string;
   };
 }
 export interface LoginRequest extends Request {

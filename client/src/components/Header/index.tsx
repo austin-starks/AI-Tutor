@@ -65,7 +65,7 @@ function ResponsiveAppBar(props: { sx?: any }) {
             variant="h6"
             noWrap
             component="a"
-            onClick={() => navigate("/app")}
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },

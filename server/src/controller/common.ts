@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { InsufficientBalanceError } from "../models/userBalance";
+import { InsufficientBalanceError } from "../models/user";
 
 export const handleError = (err: Error, res: Response): void => {
   console.log(err);

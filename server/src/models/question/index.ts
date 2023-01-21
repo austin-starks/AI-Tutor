@@ -13,7 +13,6 @@ import {
   SubjectEnum,
 } from "./types";
 import QuestionModel from "./schema";
-import Balance from "../userBalance";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -232,7 +231,7 @@ class Question {
     );
     const cost = this.getCost(request.questionType);
     // decrement the user's balance
-    const newBalance = await Balance.recordTransaction(user, cost);
+    const newBalance = await user.recordTransaction(cost);
     // save question/answer to the database
     const model = await QuestionModel.create({
       questionRequest: request,
