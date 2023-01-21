@@ -36,7 +36,7 @@ const Wrapper = (props: { children: React.ReactNode }) => {
     setBanner((b) => ({ ...b, message: "" }));
   };
   const [, setBalance] = useAtom(balanceAtom);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const refLink = searchParams.get("ref");
   const refCode = searchParams.get("referralCode");
   useEffect(() => {
@@ -58,7 +58,8 @@ const Wrapper = (props: { children: React.ReactNode }) => {
                 onSubmit={(obj) => {
                   setModalType("");
                   setBalance(obj.balance);
-                  searchParams.set("referralCode", "");
+                  searchParams.delete("referralCode");
+                  setSearchParams(searchParams.toString());
                 }}
               />
             )}
